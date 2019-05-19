@@ -1,68 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React
 
-## Available Scripts
+## Comment installé React ?
+```bash
+npx create-react-app my-app
+cd my-app
+npm start
+```
+SI vous ne souhaitez pas passer par npx, installer React globalement:
+```bash
+npm i -g create-react-app 
+```
 
-In the project directory, you can run:
+Ces lignes servent à créer l'application React et lancer le serveur de dev en hot reload.
 
-### `npm start`
+> Extensions: Babel. rien d'autre en particulier sauf p-e des snippets pour ceux qui ont besoin.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Qu'est-ce qui a été installé ?
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Dossier **node_modules/** que tout le monde connait
+- Dossier **public/**
+	- **index.html** qui est l'élément le plus important, dedans il y a une div#root, c'est sur ça que react va se greffer
+	- **favicon.ico** pour le favicon du site
+	- **manifest.json** pour gérer la partie pwa grâce au serviceworker
+- Dossier **src/** 
+	-  **index.css** et **app.css** css pour l'application, au moment du build ils sont fusionnés.
+	-  **index.js** Ce fichier lance react, intègre le css principal, le premier composant App et le greffe à l'élément #root de l'html. Le serviceworker, c'est encore pour la pwa.
+	- **App.js** Composant mère de react qui sera exporter. Import de: react pour faire fonctionner le code html, logo et css pour les utiliser dans l'html. La fonction app return un rendu que va faire react.
+- **App.test.js** pour géré la partie test de l'application
+- **serviceWorker.js** pour géré la partie pwa de l'application
