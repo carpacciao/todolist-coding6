@@ -1,6 +1,6 @@
 # React
 
-## Comment installé React ?
+## Comment installer React ?
 ```bash
 npx create-react-app my-app
 cd my-app
