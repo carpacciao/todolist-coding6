@@ -28,3 +28,8 @@ Ces lignes servent à créer l'application React et lancer le serveur de dev en 
 	- **App.js** Composant mère de react qui sera exporter. Import de: react pour faire fonctionner le code html, logo et css pour les utiliser dans l'html. La fonction app return un rendu que va faire react.
 - **App.test.js** pour géré la partie test de l'application
 - **serviceWorker.js** pour géré la partie pwa de l'application
+
+## Restructuration des dossiers
+
+Dans le dossier **src/**, on va créer, pour le projet todolist, 2 dossiers: **css** et **components**.
+Dans le dossier **css**, on va y déplacer les 2 css déjà présent. Il faut donc modifier les imports dans **App.js** et **index.js**.
