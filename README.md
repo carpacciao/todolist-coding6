@@ -1,6 +1,6 @@
 # React
-
-## Comment installé React ?
+Les sous-titres sont les titres des commits, commencent après "Qu'est-ce qui a été installé ?"
+## Comment installer React ?
 ```bash
 npx create-react-app my-app
 cd my-app
@@ -39,3 +39,4 @@ Dans le dossier **css**, on va y déplacer les 2 css déjà présent. Il faut do
 - Dans le fichiers **src/App.js**, on enlève tout ce qui se trouvent entre les parenthèses du return de la fonction app et on ajoute une div avec du texte dedans.
 - On supprime l'import du **logo.svg** et on peut donc le supprimer du projet.
 - On va aussi supprimer tout le contenu des **2 css.**
+
