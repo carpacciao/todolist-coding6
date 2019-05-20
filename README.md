@@ -111,3 +111,25 @@ On peut importer notre composant de 2 manières:
 - < HeaderApp /> balise orpheline que ne pourra pas contenir de code.
 
 Dernière point, je n'ai pas appelé mon composant Header car la balise header existe déjà en html, j'ai donc ajouté 'app' au nom pour la différencier.
+
+## Template du header
+
+Pour commencer, on va donner la classe "container" à la div mère du fichier **src/App.js**. 
+Les attributs que l'on va utiliser ne sont pas exactement les mêmes que dans l'html normal. React utilise les méthodes javscript vanilla comme nom d'attribut.
+**class=""** devient **className=""**, **for=""** devient **htmlFor=""** par exemple.
+
+```js
+return (
+  <div  className="container">
+    <HeaderApp  />
+  </div>
+);
+```
+Ensuite, on va remplir le header:
+- d'un titre
+- d'un input pour le contenu de la nouvelle todo
+- de 3 boutons pour choisir le filtre actuel
+- et d'une checkbox pour cocher/decocher toutes les todos
+
+**/!\ il faut penser à fermer les balises orphelines comme br, hr, input, ... /!\**
+
