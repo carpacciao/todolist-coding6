@@ -1,6 +1,10 @@
+/* eslint-disable no-useless-constructor */
 import * as React from 'react'
 
 class Body extends React.Component {
+  constructor (props) {
+    super(props)
+  }
   render () {
     return (
       <div>

@@ -150,3 +150,93 @@ On l'importera dans **src/App.js** et on le place juste en dessous du BodyApp.
 Celui-ci contiendra:
 - Combien de todo il RESTE à faire
 - Un bouton pour supprimer les todos cochées.
+
+## Mise en place du store
+Le store doit représenter les données et leurs potentiels modifications.
+
+On commence par créer un dossier stores et on y crée un fichier TodoStore.js. **src/stores/TodoStore.js** et on y crée un class TodoStore. 
+
+```js
+class TodoStore {
+}
+export default TodoStore
+```
+On met en place les données qu'on aura besoin dans le constructor. Dans notre cas on va créer une clé todos qui sera un tableau contenant toutes les todos. Chacune des todos seront des objets avec comme clés, title String, completed Boolean, editing Boolean.
+On pré-rempli notre tableau todos, comme ça au aura des données de test.
+
+```js
+constructor () {
+  this.todos = [
+    {
+      title:  'premiere todo',
+      completed: false,
+      editing: false
+    },
+    {
+      title:  'deuxieme todo',
+      completed: true,
+      editing: false
+    }
+  ]
+}
+```
+
+Pour pouvoir injecter notre "store cross component" (Store qui se partage entre tout les composants), on va devoir modifier légèrement notre App.js. On va transformer la fonction App() en class qui extends de React.Component et dedans on aura besoin de la méthode render ().
+
+```jsx
+import * as React from  'react'; // changer cette ligne aussi !
+import  './css/App.css';
+import HeaderApp from  './components/Header'
+import BodyApp from  './components/Body'
+import FooterApp from  './components/Footer'
+
+class  App  extends  React.Component {
+  render  () {
+    return (
+      <div  className="container">
+        <HeaderApp  />
+        <BodyApp  />
+        <FooterApp  />
+      </div>
+    );
+  }
+}
+export default App;
+```
+On y ajoute un constructor qui permettra d'initialiser une instance de notre store. Pour cela on ne doit pas oublier d'importer notre store en haut.
+
+```js
+// (...)
+import TodoStore from './stores/TodoStore'
+
+class  App  extends  React.Component {
+  constructor () {
+	  super()
+	  this.store = new TodoStore()
+  }
+  // (...)
+}
+```
+On utilise super() avant l'initialisation du store car notre class app est un extends (une sous-classe). On "recentre" le this sur cette class.
+Ensuite on va devoir passer notre store à nos composants, pour cela on va utiliser le système de props de React.
+Au niveau de la balise HeaderApp on rajoute un attribut et comme valeur on passe le store (attribut (? + valeur ) = props).
+
+```jsx
+<HeaderApp store={this.store} />
+```
+
+Maintenant il faut récupérer les props dans notre **src/components/Header.js**. On va créer un constructor et y passer les props reçu par "l'attribut html".
+
+```jsx
+class  Header  extends  React.Component {
+  constructor  (props) {
+	//this est inncacéssible
+    super(props)
+    //maintenant c'est bon
+  }
+  // (...)
+}
+```
+ Il ne faut pas oublier le super(), car nous somme dans une sous-classe et on passe props paramètre.
+
+On l'a fait pour HeaderApp, maintenant il faut le faire pour BodyApp et FooterApp.
