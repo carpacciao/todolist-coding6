@@ -1,6 +1,6 @@
 # React
 
-## Comment installer React ?
+## Comment installé React ?
 ```bash
 npx create-react-app my-app
 cd my-app
@@ -33,3 +33,9 @@ Ces lignes servent à créer l'application React et lancer le serveur de dev en 
 
 Dans le dossier **src/**, on va créer, pour le projet todolist, 2 dossiers: **css** et **components**.
 Dans le dossier **css**, on va y déplacer les 2 css déjà présent. Il faut donc modifier les imports dans **App.js** et **index.js**.
+
+## Nettoyage des fichiers
+
+- Dans le fichiers **src/App.js**, on enlève tout ce qui se trouvent entre les parenthèses du return de la fonction app et on ajoute une div avec du texte dedans.
+- On supprime l'import du **logo.svg** et on peut donc le supprimer du projet.
+- On va aussi supprimer tout le contenu des **2 css.**
