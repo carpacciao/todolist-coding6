@@ -133,3 +133,13 @@ Ensuite, on va remplir le header:
 
 **/!\ il faut penser à fermer les balises orphelines comme br, hr, input, ... /!\**
 
+## Template du Body
+
+On crée **src/components/Body.js** et on le crée de la même manière que le header. En tant que composant.
+On l'importera dans **src/App.js** et on le place juste en dessous du headerApp.
+Celui contiendra la liste des todos. Chacunes des todos doivent contenir:
+- le titre
+- une checkbox pour valider ou non une todo
+- un input pour modifier le texte
+- un bouton pour supprimer la todo
+
