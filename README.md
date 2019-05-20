@@ -74,7 +74,7 @@ export default Header
 Le code de notre composant, on va l'écrire dans la **class**. Les imports se feront en dessous de l'import de react.
 Les composant react on besoin, pour fonctionner, d'une méthode **render ()** qui contiendra le code html qui sera rendu par react.
 
-```js
+```jsx
 class  Header  extends  React.Component {
   render  () {
    return (<div> Header </div>)
@@ -90,7 +90,7 @@ import HeaderApp from './components/Header'
 ```
 Le composant s'utilise de la même manière qu'une balise html, par ce fait on peut l'utiliser dans le code html de l'App.js
 
-```js
+```jsx
 import React from 'react';
 import './css/App.css';
 import HeaderApp from './components/Header'
@@ -118,7 +118,7 @@ Pour commencer, on va donner la classe "container" à la div mère du fichier **
 Les attributs que l'on va utiliser ne sont pas exactement les mêmes que dans l'html normal. React utilise les méthodes javscript vanilla comme nom d'attribut.
 **class=""** devient **className=""**, **for=""** devient **htmlFor=""** par exemple.
 
-```js
+```jsx
 return (
   <div  className="container">
     <HeaderApp  />
