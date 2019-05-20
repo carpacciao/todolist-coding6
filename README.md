@@ -40,3 +40,74 @@ Dans le dossier **css**, on va y déplacer les 2 css déjà présent. Il faut do
 - On supprime l'import du **logo.svg** et on peut donc le supprimer du projet.
 - On va aussi supprimer tout le contenu des **2 css.**
 
+## Installation de Bootstrap
+
+```bash
+npm i bootstrap
+```
+On intègre le css juste au dessus de l'import de notre css/index.css dans **src/index.js*.
+
+## Composant header
+> [react-component](https://reactjs.org/docs/react-component.html)
+
+On va créer notre premier composant. Que l'on va nommer **Header.js** et que l'on place dans **src/components/**.
+On commence par importer react dans notre fichier pour créer un composant compatible et lisible avec react.
+```js
+import * as React from 'react'
+// ou
+import { React, (...) } from 'react'
+```
+- Dans le premier cas on importe React dans sa globalité. Ses "modules" sont atteignable par React.ModuleName
+- Dans le deuxième cas on importe React et les modules que l'on souhaite.
+> Pour ce guide, on va utiliser le premier cas.
+
+Ensuite, on va créer la base de notre composant. Les composants sont des class es6 qui extends des composants react et que nous devons exporter en fin de fichier.
+```js
+import * as React from  'react'
+
+class  Header  extends  React.Component {
+
+}
+
+export default Header
+```
+Le code de notre composant, on va l'écrire dans la **class**. Les imports se feront en dessous de l'import de react.
+Les composant react on besoin, pour fonctionner, d'une méthode **render ()** qui contiendra le code html qui sera rendu par react.
+
+```js
+class  Header  extends  React.Component {
+  render  () {
+   return (<div> Header </div>)
+  }
+}
+```
+Notons que la méthode render return de l'html entre parenthèse.
+
+Maintenant, on va utiliser notre composant. Pour cela on va l'importer dans notre **src/App.js** au niveau des autres import.
+
+```js
+import HeaderApp from './components/Header'
+```
+Le composant s'utilise de la même manière qu'une balise html, par ce fait on peut l'utiliser dans le code html de l'App.js
+
+```js
+import React from 'react';
+import './css/App.css';
+import HeaderApp from './components/Header'
+
+function App() {
+  return (
+   <div>
+     <HeaderApp></HeaderApp>
+     <HeaderApp />
+   </div>
+  );
+}
+
+export default App;
+```
+On peut importer notre composant de 2 manières:
+- < HeaderApp></ headerApp> qui pourra à terme contenir du code html lui même.
+- < HeaderApp /> balise orpheline que ne pourra pas contenir de code.
+
+Dernière point, je n'ai pas appelé mon composant Header car la balise header existe déjà en html, j'ai donc ajouté 'app' au nom pour la différencier.
