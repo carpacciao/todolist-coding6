@@ -161,18 +161,20 @@ class TodoStore {
 }
 export default TodoStore
 ```
-On met en place les données qu'on aura besoin dans le constructor. Dans notre cas on va créer une clé todos qui sera un tableau contenant toutes les todos. Chacune des todos seront des objets avec comme clés, title String, completed Boolean, editing Boolean.
+On met en place les données qu'on aura besoin dans le constructor (définition du state). Dans notre cas on va créer une clé todos qui sera un tableau contenant toutes les todos. Chacune des todos seront des objets avec comme clés, id String, title String, completed Boolean, editing Boolean.
 On pré-rempli notre tableau todos, comme ça au aura des données de test.
 
 ```js
 constructor () {
   this.todos = [
     {
+	  id: 0,
       title:  'premiere todo',
       completed: false,
       editing: false
     },
     {
+      id: 1,
       title:  'deuxieme todo',
       completed: true,
       editing: false
@@ -240,3 +242,144 @@ class  Header  extends  React.Component {
  Il ne faut pas oublier le super(), car nous somme dans une sous-classe et on passe props paramètre.
 
 On l'a fait pour HeaderApp, maintenant il faut le faire pour BodyApp et FooterApp.
+
+## Logique du store
+
+Le store contiendra un state dans le constructor, et des méthodes pour modifier le state.
+On aura donc besoin de:
+- state: 
+	- todos -> tableau qui contient toutes les todos
+	- filter -> string qui renseigne le filtre actuel, all, done, doing,
+- methods:
+	- addTodo (Title) -> ajoute une todo à notre state.todos
+	- deleteTodo(Todo) -> supprime une todo de notre state.todos
+	- toggleEdit(Todo, bool) -> met l'état editing à bool
+	- updateTodo(Todo, newTitle) -> modifie le titre d'une todo
+	- setFilter(newFilter) -> redéfinit le filter
+	- getFilteredTodos() -> return une liste de todo filtrée
+	- getRemainingTodos() -> return le nombre de todos à faire
+	- toggleAll()  -> passe completed toutes les todos.
+	- clearCompleted() -> supprime toutes les todos completed
+	- uniqueId() -> return un id unique pour créer une todo
+
+- Todo obj: 
+	- title -> message du todo
+	- completed -> boolean
+	- editing -> boolean
+	- id -> index de la todo
+
+
+On va commencer par le state. Pour définir des clés, cela se passe dans le constructor. On passe par this, car nous somme dans une class.
+```js
+this.nom_de_la_cle = 'ce que tu veux'
+```
+
+Ensuite on intègre les méthodes. Attention, de manière générale react n'aime pas les mutations. On préfère récréer la variable plutot que la muté. example:
+
+```js
+let tableau = ['a', 'b', 'c']
+// non
+tableau.push('d') // mutation
+//oui
+tableau = [...tableau, 'd'] // réassignation
+```
+On commence par la méthode uniqueId, je l'ai prise d'internet car c'est pas le plus important ici et qu'elle fonctionne bien.
+Le but ici, est de généré une valeur unique pour différencier toutes nos todos.
+
+```js
+uniqueId () {
+	return Math.random().toString(36).substr(2, 9) +  '_' + Math.random().toString(36).substr(2, 9)
+}
+``` 
+addTodo, ajoute une todo à notre liste sur base d'un titre. Pour cela il faut lui donner un id avec la méthode au dessus, lui passer le paramètre titre. Et il faut réécrire complètement le tableau, car react n'aime pas les mutations (pas de push), on utilise les ... des dernières versions de l'ecmaScript.
+
+```js
+addTodo  (title) {
+this.todos = [
+  {
+    id: this.uniqueId(),
+    title, // c'est comme si on fait -> title: title
+    completed: false,
+    editing: false
+    },
+    ...this.todos // on ajoute toutes les autres todos au tableau
+  ]
+}
+```
+
+deleteTodo, supprime une todo en particulier de la liste. Pas de mutations de nouveau, on redéfinit les todos avec un tableau ou on a sortit la todo passer en paramètre.
+
+```js
+deleteTodo  (todo) {
+  this.todos = this.todos.filter(t  => t !== todo) // créer un nouveau tableau composé d'éléments différent de celui passé en paramètre
+}
+```
+
+toggleEdit, permet de changer l'état editing d'une todo. 
+
+```js
+toggleEdit  (todo, bool) {
+  this.todos = this.todos.map(t  => t === todo  ? {...t, completed: bool} : t)
+  //on refait un nouveau tableau avec la todo modifié
+}
+```
+
+updateTodo, permet de changer le titre d'une todo.
+
+```js
+updateTodo(todo, title){
+	this.todos = this.todos.map(t  => t === todo  ? {...t, title} : t)
+	this.toggleEdit(todo, false) // enlève l'état true du edit à la todo
+}
+```
+
+setFilter, pour changer le filtre actuel.
+
+```js
+setFilter  (filter) {
+  this.filter = filter
+}
+```
+toogleAll, permet de mettre l'état complété à toutes nos todos
+
+```js
+toggleAll  () {
+  this.todos = this.todos.map(t  => ({...t, completed: true}))
+}
+```
+clearCompleted, permet de vider le tableau de toutes les todos complétées 
+
+```js
+clearCompleted  () {
+  this.todos = this.todos.filter(t  => t.completed === false)
+}
+```
+
+getFilteredTodos, renvoit un tableau de todos qui sont filtrés selon le filtre sélectionné
+
+```js
+getFilteredTodos () {
+  let tab = [];
+  switch (this.filter) {
+    case  'all':
+      tab = this.todos
+      break;
+    case  'done':
+      tab = this.todos.filter(t  => t.completed === true)
+      break;
+    case  'doing':
+      tab = this.todos.filter(t  => t.completed === false)
+      break;
+    default:
+      break;
+  }
+  return tab;
+}
+```
+
+getRemainingTodos, retourne le nombre de todos qu'il reste à faire
+```js
+getRemainingTodos  () {
+  return this.todos.filter(t  => t.completed === false).length
+}
+```
